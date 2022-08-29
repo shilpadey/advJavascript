@@ -1,40 +1,38 @@
 
-//var obj = {num : 5};
+class Student{
+    static count = 0;
+    constructor(name , age , ph_number, boardmarks){
+        this.name = name;
+        this.age = age;
+        this.phoneNumber = ph_number;
+        this.marks = boardmarks;
+        Student.count += 1;
+    }
 
-//function addToThis(a,b,c){
-  //  return this.num + a + b + c;
-//}
+    numberOfStudent(){
+        console.log("Number of student registered "+ Student.count);
+    }
 
-//console.log(addToThis.call(obj,4));
-    
-  //var arr = [1,5,6];
-//console.log(addToThis.apply(obj,arr));  
-    
-//var bound = addToThis.bind(obj);
-//console.log(bound(1,2,4));
-
-//var student = {age : 20};
-
-//function printAge(){
-  //  return this.age;
-//}
-
-//var bound1 = printAge.bind(student);
-//console.log(bound1());
-
-//let multiply = function(x,y){
-  //console.log(x*y);
-//}
-
-let multiply = function(x){
-  return function (y) {
-    console.log(x*y);
-  }
+    studentEligibity(){
+        if(this.marks >= 40){
+            console.log(`${this.name} is eligible`);
+          }
+          else{
+            console.log(`${this.name} is not eligible`);
+          }
+    }
 }
 
-let multiplybyTwo = multiply(2);
-multiplybyTwo(5);
+let suman = new Student('suman',20,22896,50);
+let shreya = new Student('shreya',20,22456,76);
+let suraj = new Student('suraj',17,22723,30);
+let saurav = new Student('saurav',21,22045,66);
+let sahar = new Student('sahar',19,22876,89);
 
-let multiplybyThree = multiply(3);
-multiplybyThree(10);
+suman.studentEligibity();
+shreya.studentEligibity();
+suraj.studentEligibity();
+saurav.studentEligibity();
+sahar.studentEligibity();
 
+suman.numberOfStudent();
