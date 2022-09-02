@@ -1,16 +1,14 @@
 const posts = [
-    {title : 'Post One', body : 'This is post one', createAt: new Date().getTime()},
-    {title : 'Post Two', body : 'This is post two',createAt: new Date().getTime()}
+    {title : 'Post One', body : 'This is post one'},
+    {title : 'Post Two', body : 'This is post two'}
 ];
 
-let intervalId = 0;
 
 function getPosts() {
-    clearInterval(intervalId);
-    intervalId = setInterval(() => {
+    setTimeout(() => {
         let output = '';
         posts.forEach((post,index) => {
-            output += `<li>${post.title} - last updated ${(new Date().getTime() - post.createAt)/1000} seconds ago</li>`;
+            output += `<li>${post.title} </li>`;
         });
         document.body.innerHTML = output;
     },1000);
@@ -19,9 +17,9 @@ function getPosts() {
 function createPost(post){
   return new Promise((resolve,reject) => {  
      setTimeout(() => {
-         posts.push({...post,createAt: new Date().getTime()});
+         posts.push(post);
          
-         const error = true;
+         const error = false;
 
          if(!error){
             resolve();
@@ -50,14 +48,49 @@ function deletePost(){
     });
 }
     
+    //getPosts();
+    //createPost({ title: 'post three', body: 'This is post three'})
+    //.then(getPosts,deletePost)
+    //.catch(err => console.log(err));
+
+
+    //deletePost()
+    //.then(() => {
+     //deletePost().catch(err => console.log(err))
+    //})
+    //.catch(err => console.log(err));
+
+    const promise1 = Promise.resolve('Hello World');
+    const promise2 = 10;
+    const promise3 = new Promise((resolve,reject) => {
+        setTimeout(resolve,2000,'Good Bye')
+    });
+
+    const promise4 = {LastUserActivityTime : ''}
+
+    const updateLastUserActivityTime = function() {
+        return new Promise((resolve,reject) => {
+            setTimeout(() => {
+                promise4.LastUserActivityTime = new Date().getTime();
+                resolve(promise4.LastUserActivityTime);
+            },1000)
+        })
+    };
+
+    function userupdates() {
+        Promise.all([createPost, updateLastUserActivityTime])
+        .then(()=> {
+            createPost()
+            updateLastUserActivityTime();
+        })
+        .catch(err => console.log(err))
+    }
+
+    Promise.all([promise1,promise2,promise3,promise4]).then(values => console.log(values));
+
     getPosts();
     createPost({ title: 'post three', body: 'This is post three'})
-    .then(getPosts,deletePost)
+    .then(getPosts,userupdates)
     .catch(err => console.log(err));
 
-
-    deletePost()
-    .then(() => {
-     deletePost().catch(err => console.log(err))
-    })
-    .catch(err => console.log(err));
+    deletePost().then(deletePost).catch(err => console.log(err));
