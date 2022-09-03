@@ -14,24 +14,25 @@ function getPosts() {
     },1000);
 }
 
-function createPost(post){
-  return new Promise((resolve,reject) => {  
-     setTimeout(() => {
-         posts.push(post);
+const Posts = async () => {
+ function createPost(post){
+   return new Promise((resolve,reject) => {  
+      setTimeout(() => {
+          posts.push(post);
          
-         const error = false;
+          const error = false;
 
-         if(!error){
+          if(!error){
             resolve();
-         }else{
+          }else{
             reject('Error : Something went wrong');
-         }
-     },2000);
-  })
-}
+          }
+      },2000);
+   })
+ }
 
 
-function deletePost(){
+ function deletePost(){
     return new Promise ((resolve,reject) => { 
         setTimeout( () => {
             for( let i =0; i< posts.length; i++) {
@@ -46,6 +47,7 @@ function deletePost(){
             
         },1000);
     });
+ }
 }
     
     //getPosts();
@@ -60,34 +62,7 @@ function deletePost(){
     //})
     //.catch(err => console.log(err));
 
-    const promise1 = Promise.resolve('Hello World');
-    const promise2 = 10;
-    const promise3 = new Promise((resolve,reject) => {
-        setTimeout(resolve,2000,'Good Bye')
-    });
-
-    const promise4 = {LastUserActivityTime : ''}
-
-    const updateLastUserActivityTime = function() {
-        return new Promise((resolve,reject) => {
-            setTimeout(() => {
-                promise4.LastUserActivityTime = new Date().getTime();
-                resolve(promise4.LastUserActivityTime);
-            },1000)
-        })
-    };
-
-    function userupdates() {
-        Promise.all([createPost, updateLastUserActivityTime])
-        .then(()=> {
-            createPost()
-            updateLastUserActivityTime();
-        })
-        .catch(err => console.log(err))
-    }
-
-    Promise.all([promise1,promise2,promise3,promise4]).then(values => console.log(values));
-
+    
     getPosts();
     createPost({ title: 'post three', body: 'This is post three'})
     .then(getPosts,userupdates)
