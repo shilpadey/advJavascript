@@ -14,7 +14,6 @@ function getPosts() {
     },1000);
 }
 
-const Posts = async () => {
  function createPost(post){
    return new Promise((resolve,reject) => {  
       setTimeout(() => {
@@ -29,8 +28,7 @@ const Posts = async () => {
           }
       },2000);
    })
- }
-
+}
 
  function deletePost(){
     return new Promise ((resolve,reject) => { 
@@ -40,7 +38,7 @@ const Posts = async () => {
                 resolve(posts.pop());
                }
                else{
-                reject('error:Array is empty now');
+                reject('Array is empty now');
                }
            
             }
@@ -48,7 +46,23 @@ const Posts = async () => {
         },1000);
     });
  }
-}
+
+ async function postsProperties () {
+    await createPost({ title: 'Post Three', body: 'This is post three'});
+    await getPosts();
+    await createPost({ title: 'Post Four', body: 'This is post four'});
+    await getPosts();
+    await createPost({ title: 'Post Five', body: 'This is post five'});
+    await getPosts();
+    await createPost({title: 'Post Six',body: 'This is post six'});
+    await getPosts();
+ }
+
+ postsProperties();
+ async function postsDeletion(){
+    await deletePost();
+ }
+ postsDeletion();
     
     //getPosts();
     //createPost({ title: 'post three', body: 'This is post three'})
@@ -63,9 +77,9 @@ const Posts = async () => {
     //.catch(err => console.log(err));
 
     
-    getPosts();
-    createPost({ title: 'post three', body: 'This is post three'})
-    .then(getPosts,userupdates)
-    .catch(err => console.log(err));
+    //getPosts();
+    //createPost({ title: 'post three', body: 'This is post three'})
+    //.then(getPosts,userupdates)
+    //.catch(err => console.log(err));
 
-    deletePost().then(deletePost).catch(err => console.log(err));
+    //deletePost().then(deletePost).catch(err => console.log(err));
