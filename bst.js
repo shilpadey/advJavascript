@@ -55,6 +55,36 @@ class BST{
     printRoot(){
         return this.root;
     }
+
+    preOrder(node){
+        if(node !== null){
+            console.log(node.data);
+            this.preOrder(node.left);
+            this.preOrder(node.right);
+        }
+    }
+
+    preOrderIterate(node){
+        if(node === null){
+            return;
+        }
+
+        let stack = [];
+        stack.push(node);
+
+        while(stack.length){
+           let curr = stack.pop();
+           
+           console.log(curr.data);
+           if(curr.right){
+            stack.push(curr.right);
+           }
+           if(curr.left){
+            stack.push(curr.left);
+           }
+        }
+        
+    }
 }
 
 var mybst = new BST();
@@ -76,3 +106,7 @@ if(mybst.search(root,11)){
 }else{
     console.log('not found');
 }
+
+mybst.preOrder(root);
+
+mybst.preOrderIterate(root);
